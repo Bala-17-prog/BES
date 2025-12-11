@@ -13,13 +13,13 @@ const userRoute = require("./routes/users");
 const app = express();
 
 // ----------------------------------
-// CORS — ALLOW LOCALHOST + RENDER
+// CORS — ALLOW LOCAL + RENDER FRONTEND
 // ----------------------------------
 app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://safeexambrowser.onrender.com",  // change to your final Render URL
+      "https://bes-4ufu.onrender.com", // ✅ your correct Render site URL
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
@@ -48,10 +48,9 @@ app.use("/api/users", userRoute);
 // SERVE FRONTEND (VITE BUILD)
 // ----------------------------------
 const frontendPath = path.join(__dirname, "..", "client", "dist");
-
 app.use(express.static(frontendPath));
 
-// When refreshing /login or /exam or /admin → return index.html
+// Handles refresh for routes like /login /admin /exam
 app.get("*", (req, res) => {
   res.sendFile(path.join(frontendPath, "index.html"));
 });
